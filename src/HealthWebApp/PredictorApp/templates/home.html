@@ -1,1 +1,102 @@
-<h1>Hello, World!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Predictor App</title>
+    <style>
+        h1 {
+            text-align: center; /* Centers the header */
+        }
+        .gender-radio {
+            margin-right: 20px; /* Space between the radio buttons */
+            display: inline-block; /* Makes the labels line up side by side */
+        }
+        .form-control, .form-select {
+            box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+        }
+        .form-label {
+            display: block; /* Ensures the label takes up the full line */
+            margin-bottom: 0.5em; /* Adds space below the label */
+        }
+        .center {
+            text-align: center; /* Center the button */
+            margin-top: 20px;
+        }
+        #ageInput {
+            width: 200px; /* Smaller width for the age input */
+        }
+        .submit-button {
+            background-color: blue; /* Blue background for the submit button */
+            color: white; /* White text color */
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer; /* Cursor changes to pointer to indicate clickable */
+            border-radius: 5px; /* Rounded corners for the button */
+        }
+    </style>
+</head>
+<body>
+    <h1>Health Predictor App</h1>
+    <form onsubmit="return validateForm()">
+        <div class="mb-3">
+            <label for="ageInput" class="form-label">Age</label>
+            <input type="number" class="form-control" id="ageInput" placeholder="Enter your age" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="conditionsTextarea" class="form-label">
+              Pre-existing Conditions, please separate each condition by ';' (e.g., Heart Attack; Diabetes)
+            </label>
+            <textarea class="form-control" id="conditionsTextarea" rows="5" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="raceSelect" class="form-label">Race</label>
+            <select class="form-select" id="raceSelect" required>
+                <option value="">Choose...</option>
+                <option value="White">White</option>
+                <option value="Black or African American">Black or African American</option>
+                <option value="Hispanic or Latino">Hispanic or Latino</option>
+                <option value="Asian">Asian</option>
+                <option value="Native American or Alaska Native">Native American or Alaska Native</option>
+                <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <h4>Gender</h4>
+        <div class="mb-3">
+            <label class="gender-radio">
+              <input type="radio" name="gender" value="male" required>
+              Male
+            </label>
+            <label class="gender-radio">
+              <input type="radio" name="gender" value="female">
+              Female
+            </label>
+        </div>
+
+        <div class="center">
+            <button type="submit" class="submit-button">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function validateForm() {
+            var age = document.getElementById('ageInput').value;
+            var conditions = document.getElementById('conditionsTextarea').value;
+            var race = document.getElementById('raceSelect').value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+
+            if (age === "" || conditions === "" || race === "" || gender === null) {
+                alert("All fields must be filled out!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
