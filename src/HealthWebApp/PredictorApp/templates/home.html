@@ -8,12 +8,30 @@
         h1 {
             text-align: center; /* Centers the header */
         }
+        nav {
+            background-color: #f8f9fa; /* Light grey background */
+            border-bottom: 1px solid #e0e0e0; /* Light grey border */
+            padding: 10px 20px; /* Padding for some breathing room */
+            display: flex;
+            justify-content: flex-end; /* Aligns link to the right */
+        }
+        nav a {
+            text-decoration: none; /* No underline on links */
+            color: #007bff; /* Bootstrap primary blue */
+            margin: 0 10px; /* Spacing between links */
+            font-size: 18px; /* Larger font size for better readability */
+        }
         .gender-radio {
             margin-right: 20px; /* Space between the radio buttons */
             display: inline-block; /* Makes the labels line up side by side */
         }
         .form-control, .form-select {
+            width: 100%; /* Ensures controls take full width of the container */
             box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+        }
+        #conditionsTextarea {
+            height: 150px; /* Larger height for the textarea */
+            width: 75%; /* Full container width */
         }
         .form-label {
             display: block; /* Ensures the label takes up the full line */
@@ -25,6 +43,10 @@
         }
         #ageInput {
             width: 200px; /* Smaller width for the age input */
+        }
+        #raceSelect
+        {
+            width: 300px;
         }
         .submit-button {
             background-color: blue; /* Blue background for the submit button */
@@ -38,22 +60,26 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="/results.html">Results</a>
+        <a href="/logout.html">Logout</a>
+    </nav>
     <h1>Health Predictor App</h1>
     <form onsubmit="return validateForm()">
+        <h4>Age</h4>
         <div class="mb-3">
-            <label for="ageInput" class="form-label">Age</label>
+            <label for="ageInput" class="form-label">
             <input type="number" class="form-control" id="ageInput" placeholder="Enter your age" required>
         </div>
 
+        <h4>Pre-existing Conditions, please separate each condition by ';' (e.g., Heart Attack; Diabetes)</h4>
         <div class="mb-3">
-            <label for="conditionsTextarea" class="form-label">
-              Pre-existing Conditions, please separate each condition by ';' (e.g., Heart Attack; Diabetes)
-            </label>
-            <textarea class="form-control" id="conditionsTextarea" rows="5" required></textarea>
+            <textarea class="form-control" id="conditionsTextarea" rows="5"></textarea>
         </div>
 
+        <h4>Race</h4>
         <div class="mb-3">
-            <label for="raceSelect" class="form-label">Race</label>
+            <label for="raceSelect" class="form-label">
             <select class="form-select" id="raceSelect" required>
                 <option value="">Choose...</option>
                 <option value="White">White</option>
