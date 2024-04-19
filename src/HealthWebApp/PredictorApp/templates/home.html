@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Predictor App</title>
@@ -26,7 +28,7 @@
             display: inline-block; /* Makes the labels line up side by side */
         }
         .form-control, .form-select {
-            width: 100%; /* Ensures controls take full width of the container */
+            width: 50%; /* Ensures controls take full width of the container */
             box-sizing: border-box; /* Includes padding and border in the element's total width and height */
         }
         #conditionsTextarea {
@@ -65,50 +67,52 @@
         <a href="/logout.html">Logout</a>
     </nav>
     <h1>Health Predictor App</h1>
-    <form onsubmit="return validateForm()" method="post" action="{% url 'results' %}">
-        {% csrf_token %}
-        <h4>Age</h4>
-        <div class="mb-3">
-            <label for="ageInput" class="form-label">
-            <input type="number" class="form-control" name="ageInput" id="ageInput" placeholder="Enter your age" required>
-        </div>
+        <div class="container d-flex justify-content-center">
+        <form onsubmit="return validateForm()" method="post" action="{% url 'results' %}">
+            {% csrf_token %}
+            <h4>Age</h4>
+            <div class="mb-3">
+                <label for="ageInput" class="form-label">
+                <input type="number" class="form-control" name="ageInput" id="ageInput" placeholder="Enter your age" required>
+            </div>
 
-        <h4>Pre-existing Conditions, please separate each condition by ';' (e.g., Heart Attack; Diabetes)</h4>
-        <div class="mb-3">
-            <textarea class="form-control" name="conditionsTextarea" id="conditionsTextarea" rows="5"></textarea>
-        </div>
+            <h4>Pre-existing Conditions, please separate each condition by ';' (e.g., Heart Attack; Diabetes)</h4>
+            <div class="mb-3">
+                <textarea class="form-control" name="conditionsTextarea" id="conditionsTextarea" rows="5"></textarea>
+            </div>
 
-        <h4>Race</h4>
-        <div class="mb-3">
-            <label for="raceSelect" class="form-label">
-            <select class="form-select" name="raceSelect" id="raceSelect" required>
-                <option value="">Choose...</option>
-                <option value="White">White</option>
-                <option value="Black or African American">Black or African American</option>
-                <option value="Hispanic or Latino">Hispanic or Latino</option>
-                <option value="Asian">Asian</option>
-                <option value="Native American or Alaska Native">Native American or Alaska Native</option>
-                <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
+            <h4>Race</h4>
+            <div class="mb-3">
+                <label for="raceSelect" class="form-label">
+                <select class="form-select" name="raceSelect" id="raceSelect" required>
+                    <option value="">Choose...</option>
+                    <option value="White">White</option>
+                    <option value="Black or African American">Black or African American</option>
+                    <option value="Hispanic or Latino">Hispanic or Latino</option>
+                    <option value="Asian">Asian</option>
+                    <option value="Native American or Alaska Native">Native American or Alaska Native</option>
+                    <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
 
-        <h4>Gender</h4>
-        <div class="mb-3">
-            <label class="gender-radio">
-              <input type="radio" name="gender" value="male" required>
-              Male
-            </label>
-            <label class="gender-radio">
-              <input type="radio" name="gender" value="female">
-              Female
-            </label>
-        </div>
+            <h4>Gender</h4>
+            <div class="mb-3">
+                <label class="gender-radio">
+                <input type="radio" name="gender" value="male" required>
+                Male
+                </label>
+                <label class="gender-radio">
+                <input type="radio" name="gender" value="female">
+                Female
+                </label>
+            </div>
 
-        <div class="center">
-            <button type="submit" class="submit-button">Submit</button>
-        </div>
-    </form>
+            <div class="center">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
+    </div>
 
     <script>
         function validateForm() {
