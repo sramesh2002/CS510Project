@@ -65,22 +65,23 @@
         <a href="/logout.html">Logout</a>
     </nav>
     <h1>Health Predictor App</h1>
-    <form onsubmit="return validateForm()">
+    <form onsubmit="return validateForm()" method="post" action="{% url 'results' %}">
+        {% csrf_token %}
         <h4>Age</h4>
         <div class="mb-3">
             <label for="ageInput" class="form-label">
-            <input type="number" class="form-control" id="ageInput" placeholder="Enter your age" required>
+            <input type="number" class="form-control" name="ageInput" id="ageInput" placeholder="Enter your age" required>
         </div>
 
         <h4>Pre-existing Conditions, please separate each condition by ';' (e.g., Heart Attack; Diabetes)</h4>
         <div class="mb-3">
-            <textarea class="form-control" id="conditionsTextarea" rows="5"></textarea>
+            <textarea class="form-control" name="conditionsTextarea" id="conditionsTextarea" rows="5"></textarea>
         </div>
 
         <h4>Race</h4>
         <div class="mb-3">
             <label for="raceSelect" class="form-label">
-            <select class="form-select" id="raceSelect" required>
+            <select class="form-select" name="raceSelect" id="raceSelect" required>
                 <option value="">Choose...</option>
                 <option value="White">White</option>
                 <option value="Black or African American">Black or African American</option>
