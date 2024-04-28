@@ -24,10 +24,8 @@
             font-size: 18px; /* Larger font size for better readability */
         }
         .form-control {
-            width: 50%; /* Ensures controls take full width of the container */
-            margin: auto; /* Center align the form inputs */
+            width: 100%; /* Adjust width to take up 100% of its container */
             margin-top: 10px; /* Spacing above inputs */
-            box-sizing: border-box; /* Includes padding and border in the element's total width and height */
         }
         .center {
             text-align: center; /* Center the button */
@@ -42,52 +40,63 @@
             cursor: pointer; /* Cursor changes to pointer to indicate clickable */
             border-radius: 5px; /* Rounded corners for the button */
         }
+        .password-requirements {
+            font-size: 0.9rem; /* Smaller font size for requirements */
+            color: #555; /* Dark grey for better readability */
+            padding-left: 20px; /* Left padding for styling */
+        }
     </style>
 </head>
 <body>
     <nav>
-        <a href="{% url 'login' %}">Login</a> <!-- Link to the login page -->
-        <a href="{% url 'signup' %}">Signup</a> <!-- Ensures this link is redundant but maintains symmetry in design -->
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
     </nav>
     <h1>Signup for Health Predictor App</h1>
     <div class="container d-flex justify-content-center">
-        <form method="post" action="{% url 'signup' %}">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="mb-3">
-                <label for="username" class="form-label">Username:</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-                {{ form.username.errors }}
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Signup form -->
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password1" name="password1" required>
+                        {{ form.password1.errors }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Confirm Password:</label>
+                        <input type="password" class="form-control" id="password2" name="password2" required>
+                        {{ form.password2.errors }}
+                    </div>
+                    <div class="center">
+                        <button type="submit" class="submit-button">Signup</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-                {{ form.email.errors }}
+            <div class="col-md-6">
+                <!-- Password requirements -->
+                <h3>Password Requirements:</h3>
+                <ul class="password-requirements">
+                    <li>At least 8 characters long</li>
+                    <li>Must not be too similar to your other personal information</li>
+                    <li>Must not be a commonly used password</li>
+                    <li>Must not be entirely numeric</li>
+                    <li>Must contain at least one letter and one numeral</li>
+                </ul>
             </div>
-            <div class="mb-3">
-                <label for="password1" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password1" name="password1" required>
-                {{ form.password1.errors }}
-            </div>
-            <div class="mb-3">
-                <label for="password2" class="form-label">Confirm Password:</label>
-                <input type="password" class="form-control" id="password2" name="password2" required>
-                {{ form.password2.errors }}
-            </div>
-            <div class="center">
-                <button type="submit" class="submit-button">Signup</button>
-            </div>
-        </form>
-    </div>
-    <div class="container mt-4">
-        <h3>Password Requirements:</h3>
-        <ul>
-            <li>At least 8 characters long</li>
-            <li>Must not be too similar to your other personal information</li>
-            <li>Must not be a commonly used password</li>
-            <li>Must not be entirely numeric</li>
-            <li>Must contain at least one letter and one numeral</li>
-        </ul>
+        </div>
     </div>
 </body>
 </html>
