@@ -7,10 +7,14 @@ patients = pd.read_csv('PredictorApp/patients.csv')
 admissions = pd.read_csv('PredictorApp/admissions.csv')
 notes = pd.read_csv('PredictorApp/discharge.csv')
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import SignUpForm
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    return render(request, "home.html", {})
+    return render(request, 'home.html')
 
 def results(request):
     if request.method == 'POST':
@@ -32,6 +36,43 @@ def results(request):
     else:
         return HttpResponse("Invalid request", status=400)
 
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect('home')  # Explicit redirect to 'home'
+            else:
+                return HttpResponse("Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirect back to login page
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            messages.success(request, "Signup successful! You can now log in.")
+            return redirect('home')
+        else:
+            messages.error(request, "Signup failed. Please correct the errors below.")         
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+        
 
 def get_results_from_model(age, conditions, race, gender):
     # make these run initially at app start instead

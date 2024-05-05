@@ -63,8 +63,10 @@
 </head>
 <body>
     <nav>
-        <a href="/results.html">Results</a>
-        <a href="/logout.html">Logout</a>
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="border: none; background: none; cursor: pointer; color: #007bff; padding: 0; font-size: 18px;">Logout</button>
+    </form>
     </nav>
     <h1>Health Predictor App</h1>
         <div class="container d-flex justify-content-center">
