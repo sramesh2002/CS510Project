@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import pandas as pd
 import openai
+import json
+
 
 patients = pd.read_csv('PredictorApp/patients.csv')
 admissions = pd.read_csv('PredictorApp/admissions.csv')
@@ -19,22 +21,24 @@ def home(request):
 def results(request):
     if request.method == 'POST':
         age = request.POST.get('ageInput')
-        print(age)
-        conditions =  request.POST.get('conditionsTextarea')
+        conditions = request.POST.get('conditionsTextarea')
         race = request.POST.get('raceSelect')
         gender = request.POST.get('gender', 'Not specified')
 
         health_prediction = get_results_from_model(age, conditions, race, gender)
-
+        health_prediction = str(health_prediction)
+        health_prediction = health_prediction.replace("Name: count, dtype: float64", "")
+        prediction_list = [item.replace('"', '').strip() for item in health_prediction.split('\n') if item.strip()]
         return render(request, 'results.html', {
             'age': age,
             'conditions': conditions,
             'race': race,
             'gender': gender,
-            'prediction': health_prediction,
+            'prediction': prediction_list,
         })
     else:
         return HttpResponse("Invalid request", status=400)
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -81,7 +85,7 @@ def get_results_from_model(age, conditions, race, gender):
     openai.api_type = "azure"
     openai.api_base = "https://mol-qa.openai.azure.com/"
     openai.api_version = "2023-07-01-preview"
-    openai.api_key = 'ad44b9ff43fa4d448fd8734b0fd8f9b2'
+    openai.api_key = None #YOUR OWN API KEY
     
     # call search data
     search_data(filtered_data, conditions)
@@ -228,5 +232,5 @@ def top_five_diseases_weighted(csv_file_path):
 
     # Sort by MLE in descending order and get top 5
     top_five = mle.sort_values(ascending=False).head(5)
-
+    
     return top_five

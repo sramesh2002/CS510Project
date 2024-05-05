@@ -53,7 +53,12 @@
         <p>Conditions: {{ conditions }}</p>
         <p>Race: {{ race }}</p>
         <p>Gender: {{ gender }}</p>
-        <p>Results: {{ prediction }}</p>
+        <p>Results:</p>
+        <ul>
+            {% for result in prediction %}
+            <li>{{ result }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </body>
 </html>
