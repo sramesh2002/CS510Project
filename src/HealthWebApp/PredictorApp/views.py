@@ -19,6 +19,9 @@ def home(request):
     return render(request, 'home.html')
 
 def results(request):
+    '''
+    Get results from the form input
+    '''
     if request.method == 'POST':
         age = request.POST.get('ageInput')
         conditions = request.POST.get('conditionsTextarea')
@@ -79,7 +82,9 @@ def signup_view(request):
         
 
 def get_results_from_model(age, conditions, race, gender):
-    # make these run initially at app start instead
+    '''
+    This is the main function where the models are called from.
+    '''
 
     filtered_data = filter_data(age, gender[0], race)
     openai.api_type = "azure"
@@ -92,6 +97,9 @@ def get_results_from_model(age, conditions, race, gender):
     return top_five_diseases_weighted("clinical_notes_diseases_preconditions.csv")
 
 def process_prompt(prompt):
+    '''
+    prompt process
+    '''
 
     message_text = [{"role":"system","content":"You are an AI assistant that helps in medical information"},{"role":"user","content": prompt}]
 
